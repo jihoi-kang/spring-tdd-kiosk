@@ -1,6 +1,6 @@
 package sample.springtddkiosk.spring.api.controller.product;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -9,33 +9,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sample.springtddkiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.springtddkiosk.spring.domain.product.ProductType.HANDMADE;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import sample.springtddkiosk.spring.ControllerTestSupport;
 import sample.springtddkiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
-import sample.springtddkiosk.spring.api.service.product.ProductService;
 import sample.springtddkiosk.spring.api.service.product.response.ProductResponse;
 
-@WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private ProductService productService;
+class ProductControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 상품을 등록한다")
     @Test
@@ -160,7 +144,7 @@ class ProductControllerTest {
     void getSellingProducts() throws Exception {
         // given
         List<ProductResponse> result = List.of();
-        when(productService.getSellingProducts()).thenReturn(result);
+        given(productService.getSellingProducts()).willReturn(result);
 
         // when & then
         mockMvc.perform(get("/api/v1/products/selling"))

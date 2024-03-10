@@ -11,14 +11,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class ProductRepositoryTest {
+import sample.springtddkiosk.spring.IntegrationTestSupport;
+
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
@@ -42,11 +40,11 @@ class ProductRepositoryTest {
 
         // then
         Assertions.assertThat(products).hasSize(2)
-                .extracting("productNumber", "name", "sellingStatus")
-                .containsExactlyInAnyOrder(
-                        tuple("001", "아메리카노", SELLING),
-                        tuple("002", "카페라떼", HOLD)
-                );
+            .extracting("productNumber", "name", "sellingStatus")
+            .containsExactlyInAnyOrder(
+                tuple("001", "아메리카노", SELLING),
+                tuple("002", "카페라떼", HOLD)
+            );
     }
 
     @DisplayName("상품 번호들로 상품들을 조회한다")
@@ -63,11 +61,11 @@ class ProductRepositoryTest {
 
         // then
         Assertions.assertThat(products).hasSize(2)
-                .extracting("productNumber", "name", "sellingStatus")
-                .containsExactlyInAnyOrder(
-                        tuple("001", "아메리카노", SELLING),
-                        tuple("002", "카페라떼", HOLD)
-                );
+            .extracting("productNumber", "name", "sellingStatus")
+            .containsExactlyInAnyOrder(
+                tuple("001", "아메리카노", SELLING),
+                tuple("002", "카페라떼", HOLD)
+            );
     }
 
     @DisplayName("가장 마지막으로 저장한 상품 번호를 불러온다")
@@ -100,19 +98,19 @@ class ProductRepositoryTest {
     }
 
     private static Product createProduct(
-            String productNumber,
-            ProductType type,
-            ProductSellingStatus sellingStatus,
-            String name,
-            int price
+        String productNumber,
+        ProductType type,
+        ProductSellingStatus sellingStatus,
+        String name,
+        int price
     ) {
         return Product.builder()
-                .productNumber(productNumber)
-                .type(type)
-                .sellingStatus(sellingStatus)
-                .name(name)
-                .price(price)
-                .build();
+            .productNumber(productNumber)
+            .type(type)
+            .sellingStatus(sellingStatus)
+            .name(name)
+            .price(price)
+            .build();
     }
 
 

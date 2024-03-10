@@ -6,12 +6,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@SpringBootTest
-class StockRepositoryTest {
+import sample.springtddkiosk.spring.IntegrationTestSupport;
+
+class StockRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private StockRepository stockRepository;
@@ -31,11 +31,11 @@ class StockRepositoryTest {
 
         // then
         Assertions.assertThat(stocks).hasSize(2)
-                .extracting("productNumber", "quantity")
-                .containsExactlyInAnyOrder(
-                        tuple("001", 1),
-                        tuple("002", 2)
-                );
+            .extracting("productNumber", "quantity")
+            .containsExactlyInAnyOrder(
+                tuple("001", 1),
+                tuple("002", 2)
+            );
     }
 
 }
